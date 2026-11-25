@@ -1,4 +1,4 @@
-/* The Taylor Swift Archives */
+
 const ALBUMS = [
   { id:"red", title:"Red", year:2012, date:"October 22, 2012", c:["#8e1b2d","#d94353","#fff"],
     img:"https://i.pinimg.com/originals/fc/de/a1/fcdea122c90a05e843661917eb4bb115.jpg",
@@ -48,7 +48,7 @@ const $ = (s, r = document) => r.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const cover = a => `<div class="cover" style="--a:${a.c[0]};--b:${a.c[1]};--t:${a.c[2]}" role="img" aria-label="${esc(a.title)} cover art"><b>${esc(a.title)}</b><i>${a.year}</i><img src="${esc(a.img)}" alt="" loading="lazy" onerror="this.remove()"></div>`;
 
-/* Album cards */
+
 function renderGrid(list) {
   $("#grid").innerHTML = list.map(a =>
     `<button class="card" data-id="${a.id}" aria-label="Open ${esc(a.title)}, ${a.year}">${cover(a)}<span class="name">${esc(a.title)}</span><span class="yr">${a.year}</span></button>`).join("");
@@ -60,7 +60,7 @@ $("#grid").addEventListener("click", e => {
   if (c) openAlbum(c.dataset.id);
 });
 
-/* Search: albums by title/year, songs by name or meaning */
+
 let query = "";
 function runSearch() {
   query = $("#search").value.trim().toLowerCase();
@@ -81,7 +81,7 @@ $("#searchForm").addEventListener("submit", e => {
   if (first && query) openAlbum(first.dataset.id);
 });
 
-/* Modal */
+
 let lastFocus = null;
 function openAlbum(id) {
   const a = ALBUMS.find(x => x.id === id);
@@ -105,7 +105,7 @@ $("#close").addEventListener("click", closeModal);
 $("#modal").addEventListener("click", e => { if (e.target.id === "modal") closeModal(); });
 document.addEventListener("keydown", e => { if (e.key === "Escape" && !$("#modal").hidden) closeModal(); });
 
-/* Hero: collage of all six eras plus a rotating era card */
+
 $("#collage").innerHTML = ALBUMS.map(a => cover(a).replace('role="img"', 'aria-hidden="true" role="presentation"')).join("");
 const dots = $("#dots");
 dots.innerHTML = ALBUMS.map((a, i) => `<button role="tab" data-i="${i}" aria-label="Show ${esc(a.title)}"></button>`).join("");
@@ -130,7 +130,7 @@ dots.addEventListener("click", e => {
 $("#heroBtn").addEventListener("click", e => openAlbum(e.currentTarget.dataset.id));
 show(0); autoplay();
 
-/* Responsive nav and misc */
+
 const menu = $("#menu"), links = $("#links");
 menu.addEventListener("click", () => {
   const open = links.classList.toggle("open");
@@ -143,7 +143,7 @@ const spy = new IntersectionObserver(es => es.forEach(en => {
 ["home", "albums", "about", "contact"].forEach(id => spy.observe(document.getElementById(id)));
 $("#year").textContent = new Date().getFullYear();
 
-/* Contact form */
+
 $("#contactForm").addEventListener("submit", e => {
   e.preventDefault();
   const name = $("#cName").value.trim();
